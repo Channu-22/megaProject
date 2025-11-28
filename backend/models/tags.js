@@ -16,8 +16,6 @@ const tagsSchema = new mongoose.Schema(
                 ref: "Course",
             },
         ]
-
-
     },
     {
         timestamps: true,

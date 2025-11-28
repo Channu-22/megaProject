@@ -17,7 +17,15 @@ const userSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    contactNumber: {
+      type: String,
+      required: true,
+    },
     password: {
+      type: String,
+      required: true,
+    },
+    confirmPassword: {
       type: String,
       required: true,
     },
@@ -28,7 +36,7 @@ const userSchema = new mongoose.Schema(
     },
     additionalDetails: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
+      
       ref: "Profile",
     },
     courses: [
@@ -39,7 +47,7 @@ const userSchema = new mongoose.Schema(
     ],
     image: {
       type: String,
-      required: true,
+      // required: true,
     },
     courseProgress: [
       {
