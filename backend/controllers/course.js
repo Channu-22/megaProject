@@ -104,7 +104,7 @@ export const createCourse = async (req, res) => {
 
 
 //GET ALL COURSE
-export const showAllCourses = async (req, res) => {
+export const getAllCourses = async (req, res) => {
     try {
 
         const getAllCourse = await Course.find({}, {                                  // projection (fields to return)
@@ -131,6 +131,63 @@ export const showAllCourses = async (req, res) => {
             success: false,
             message: "Failed to fetch course"
         });
+
+    }
+}
+
+//getCourseDetails
+export const getCourseDetails = async (req, res) => {
+    try {
+        const { courseId } = req.body;
+        if (!courseId) {
+            return res.status(400).json({
+                success: false,
+                message: "courseId is required",
+            });
+        }
+        const courseDetails = await Course.findById({ _id: courseId }).populate(
+            {
+                path: "instructor",
+                populate: {
+                    path: "additionalDetails"
+                }
+            }).populate("category").
+            populate(
+                {
+                    path: "courseContent",
+                    populate: {
+                        path: "subSection"
+                    }
+                }
+            ).populate("ratingAndReviews").
+            populate(
+                {
+                    path: "studentsEnrolled",
+                    populate: {
+                        path: "additionalDetails"
+                    }
+                });
+
+        if (!courseDetails) {
+            return res.status(400).json({
+                success: false,
+                message: `could not find the course with ID ${courseId}`,
+                data: courseDetails
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Fetched courseDetails successfully"
+        })
+
+    } catch (err) {
+        console.log("Failed to fetch courseDetails: ", err.message)
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to fetch courseDetails"
+        })
 
     }
 }

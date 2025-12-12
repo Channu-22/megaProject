@@ -1,4 +1,5 @@
-import Category from "../models/category.js"
+import category from "../models/category.js";
+// import Category from "../models/category.js"
 import Validator from "validator"
 
 
@@ -13,14 +14,14 @@ export const createCategory = async (req, res) => {
                 message: "Name and description are required"
             });
         }
-        const tagDetails = await Tag.create({
+        const categoryDetails = await category.create({
             name,
             description
         });
         return res.status(200).json({
             success: true,
-            message: "tag created successfully",
-            tagDetails
+            message: "category created successfully",
+            categoryDetails
         })
 
     } catch (err) {
@@ -31,25 +32,28 @@ export const createCategory = async (req, res) => {
         });
 
     }
-} 
+}
 
 //GET ALL TAGS HANDLER FUNCTIon
-export const getAllCategory = async (req,res) =>{
-    try{
+export const getAllCategory = async (req, res) => {
+    try {
 
-        const allTags = await Tag.find({});
-         return res.status(200).json({
+        const allCategory = await category.find({});
+        return res.status(200).json({
             success: true,
-            message: "tags fetched successfully",
-            allTags
+            message: "category fetched successfully",
+            allCategory
         })
 
-    }catch(err){
-                console.log("error in fetching all tag: ", err.message)
+    } catch (err) {
+        console.log("error in fetching all category: ", err.message)
         return res.status(500).json({
             success: false,
-            message: "Error occurred while fetching tags"
+            message: "Error occurred while fetching category"
         });
 
     }
 }
+
+
+//category page Details 

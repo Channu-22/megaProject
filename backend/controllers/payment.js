@@ -4,6 +4,10 @@ import { courseEnrollmentEmail } from "../mail/templates/courseEnrollmentEmail.j
 import Course from "../models/course.js";
 import User from "../models/user.js";
 import mailSender from "../utils/mailSender.js";
+import crypto from "crypto";
+// import Course from "../models/course.js";
+// import User from "../models/user.js";
+// import mailSender from "../utils/mailSender.js";
 
 export const capturePayment = async (req, res) => {
     //get course and user ID
@@ -85,8 +89,6 @@ export const capturePayment = async (req, res) => {
 
 }
 
-
-
 //VERIFY SIGNATURE OF RAZORPAY AND SERVER
 // export const verifySignature = async (req, res) => {
 //     const webhookSecret = "22072002";
@@ -164,14 +166,11 @@ export const capturePayment = async (req, res) => {
 //     }
 
 // }
-import crypto from "crypto";
-import Course from "../models/course.js";
-import User from "../models/user.js";
-import mailSender from "../utils/mailSender.js";
 
+//VERIFY SIGNATURE OF RAZORPAY AND SERVER
 export const verifySignature = async (req, res) => {
     try {
-        const webhookSecret = "22072002"; // better: process.env.RAZORPAY_WEBHOOK_SECRET
+        const webhookSecret = ; // better: process.env.RAZORPAY_WEBHOOK_SECRET
 
         const signature = req.headers["x-razorpay-signature"];
 
