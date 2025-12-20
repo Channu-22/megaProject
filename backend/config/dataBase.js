@@ -16,3 +16,7 @@ const dbConnection = async () => {
 }
 
 export default dbConnection;
+// userName=channusin280622_db_user
+// password=pnH7RWt421m9aNi2
+// db_url=mongodb+srv://channusin280622_db_user:pnH7RWt421m9aNi2@cluster0.g3hpkar.mongodb.net/studyNotion
+// mongodb://127.0.0.1:27017/studyNotion

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { instance } from "../config/razorpay";
+import { instance } from "../config/razorpay.js";
 import { courseEnrollmentEmail } from "../mail/templates/courseEnrollmentEmail.js";
 import Course from "../models/course.js";
 import User from "../models/user.js";
@@ -168,9 +168,9 @@ export const capturePayment = async (req, res) => {
 // }
 
 //VERIFY SIGNATURE OF RAZORPAY AND SERVER
-export const verifySignature = async (req, res) => {
+export const verifyPayment  = async (req, res) => {
     try {
-        const webhookSecret = ; // better: process.env.RAZORPAY_WEBHOOK_SECRET
+        const webhookSecret = process.env.web_Hook_Secret; // better: process.env.RAZORPAY_WEBHOOK_SECRET
 
         const signature = req.headers["x-razorpay-signature"];
 

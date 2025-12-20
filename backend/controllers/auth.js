@@ -6,11 +6,12 @@ import validator from "validator"
 import User from "../models/user.js"
 import OTP from "../models/otp.js"
 import Profile from "../models/profile.js"
+import mailSender from "../utils/mailSender.js";
+import { passwordUpdated } from "../mail/templates/passwordUpdate.js"
 
 dotenv.config();
 
-// SEND OTP
-
+//Controller for SEND OTP
 export const sendOTP = async (req, res) => {
     try {
         // fetch email from body
@@ -57,6 +58,7 @@ export const sendOTP = async (req, res) => {
         console.log("otpPaylod is: ", otpPayload);
 
         const otpBody = await OTP.create(otpPayload);
+        console.log("OTP document created:", otpBody);
         res.status(200).json({
             success: true,
             message: "OTP sent successfully",
@@ -74,9 +76,7 @@ export const sendOTP = async (req, res) => {
     }
 }
 
-
-
-// SIGN UP
+//Controller for SIGN UP
 export const signUp = async (req, res) => {
     try {
         //fetch the data from the body 
@@ -118,19 +118,24 @@ export const signUp = async (req, res) => {
         }
 
         //find most recent stored OTP for the user
+        // find most recent stored OTP for the user
         const recentOTP = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1);
-        console.log("checking recent OTP: ", recentOTP);
-        if (recentOTP.length == 0) {
+
+        if (recentOTP.length === 0) {
             return res.status(400).json({
                 success: false,
                 message: "OTP not found",
             });
-        } else if (recentOTP.otp !== otp) {
+        }
+
+        // compare otp
+        if (recentOTP[0].otp !== otp) {
             return res.status(400).json({
                 success: false,
                 message: "Invalid OTP",
             });
         }
+
 
         //hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -168,8 +173,7 @@ export const signUp = async (req, res) => {
     }
 }
 
-
-// LOGIN
+//Controller for LOGIN
 export const login = async (req, res) => {
     try {
         //fetch the data from the body
@@ -250,22 +254,74 @@ export const login = async (req, res) => {
 }
 
 
-// CHANEG PASSWORD
-export const changePassword= async(req,res) => {
-    try{
-        //fetch data from body
+// Controller for Changing Password
+export const changePassword = async (req, res) => {
+    try {
+        // STEP 1: Get logged-in user data using userId from JWT (set by auth middleware)
+        const userDetails = await User.findById(req.user.id);
 
-        //fetch oldPassword,newPassword and confirmPassword
+        // STEP 2: Extract oldPassword and newPassword from request body
+        const { oldPassword, newPassword } = req.body;
 
-        //validation
+        // STEP 3: Compare old password entered by user with password stored in DB
+        const isPasswordMatch = await bcrypt.compare(
+            oldPassword,
+            userDetails.password
+        );
 
-        //update password in DB
+        // If old password does not match, stop execution
+        if (!isPasswordMatch) {
+            return res.status(401).json({
+                success: false,
+                message: "The password is incorrect",
+            });
+        }
 
-        //send mail updated pass
+        // STEP 4: Hash the new password
+        const encryptedPassword = await bcrypt.hash(newPassword, 10);
 
-        //return response
+        // STEP 5: Update password in database
+        const updatedUserDetails = await User.findByIdAndUpdate(
+            req.user.id,
+            { password: encryptedPassword },
+            { new: true }
+        );
 
-    }catch(err){
+        // STEP 6: Send email notification about password update
+        try {
+            const emailResponse = await mailSender(
+                updatedUserDetails.email,
+                "Password for your account has been updated",
+                passwordUpdated(
+                    updatedUserDetails.email,
+                    `Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
+                )
+            );
 
+            console.log("Email sent successfully:", emailResponse.response);
+        } catch (error) {
+            // If email fails, return error
+            console.error("Error occurred while sending email:", error);
+            return res.status(500).json({
+                success: false,
+                message: "Error occurred while sending email",
+                error: error.message,
+            });
+        }
+
+        // STEP 7: Send success response
+        return res.status(200).json({
+            success: true,
+            message: "Password updated successfully",
+        });
+
+    } catch (error) {
+        // If anything fails in the process
+        console.error("Error occurred while updating password:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Error occurred while updating password",
+            error: error.message,
+        });
     }
-}
+};

@@ -61,6 +61,7 @@ export const updateProfile = async (req, res) => {
 export const deleteAccount = async (req, res) => {
     try {
         //get id
+        console.log("priting id: ",req.user.id)
         const id = req.user.id;
 
         //validate the data
@@ -79,7 +80,8 @@ export const deleteAccount = async (req, res) => {
         //return responses
         return res.status(200).json({
             success: true,
-            message: "Account deleted successfully"
+            message: "Account deleted successfully",
+            data:deleteUserAccount
         })
 
     } catch (err) {
@@ -108,7 +110,8 @@ export const getUserDetails = async (req, res) => {
         //return res
         return res.status(200).json({
             success: true,
-            message: "User details fetched successfully"
+            message: "User details fetched successfully",
+            data:userDetails
         })
 
 
