@@ -5,3 +5,22 @@
 html,body{
     overflow-x: hidden;
 }
+
+/* Add this to your CSS file (index.css or App.css) */
+
+/* .code-border {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(14, 18, 27, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+.codeblock1 {
+  width: 372.95px;
+  height: 257.05px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0) 70%);
+  filter: blur(34px);
+  opacity: 0.2;
+  left: -5%;
+  top: -10%;
+} */
