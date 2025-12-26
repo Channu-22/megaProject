@@ -3,10 +3,14 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import { BrowserRouter } from "react-router-dom";
 import Router from './Router';
+import Header from './components/common/Header';
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Router />
   </StrictMode>,
+  // <StrictMode>
+  //   <Header />
+  // </StrictMode>,
 )

@@ -44,3 +44,7 @@
   );
   /* backdrop-filter: blur(26px); */
 }
+
+.homePage_bg{
+  background-image:url(../assets/Images/bghome.svg) ;
+}

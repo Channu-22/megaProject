@@ -1,11 +1,18 @@
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './pages/Home'
+import OutLet from './components/common/OutLet'
 
 const router = createBrowserRouter([
   {
     path:"/",
-    element:<Home/>
+    element:<OutLet/>,
+    children:[
+      {
+        index:true,
+        element:<Home/>
+      }
+    ]
   }
 ])
 

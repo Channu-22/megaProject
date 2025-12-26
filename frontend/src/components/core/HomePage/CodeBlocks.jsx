@@ -1,6 +1,6 @@
 import React from "react";
 import CallToActionButton from "./Button.jsx";
-import HightLightText from "./HightLightText.jsx";
+import HightLightText from "./HighLightText.jsx";
 import { MoveRight } from "lucide-react";
 import { TypeAnimation } from "react-type-animation";
 

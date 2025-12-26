@@ -1,11 +1,16 @@
 import React from "react";
-import "./home.css"
+import "./home.css";
 import { MoveRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import HightLightText from "../components/core/HomePage/HightLightText.jsx";
+import HighLightText from "../components/core/HomePage/HighLightText.jsx";
 import CallToActionButton from "../components/core/HomePage/Button.jsx";
 import Banner from "../assets/Images/Banner.mp4";
 import CodeBlocks from "../components/core/HomePage/CodeBlocks.jsx";
+import TimeLineSection from "../components/core/HomePage/TimeLineSection.jsx";
+import LearningLaguangeSection from "../components/core/HomePage/LearningLaguangeSection.jsx";
+import InstructorSection from "../components/core/HomePage/InstructorSection.jsx";
+import Footer from "../components/common/Footer.jsx";
+import ExploreMore from "../components/core/HomePage/ExploreMore.jsx";
 
 function Home() {
   return (
@@ -26,7 +31,7 @@ function Home() {
 
         <div className="text-center text-4xl font-semibold mt-7">
           Empower Your Future with
-          <HightLightText text="Coding Skills" />
+          <HighLightText text="Coding Skills" />
         </div>
 
         <div className="w-[58%] text-center text-[14px] font-bold text-richblack-200 mt-4">
@@ -64,7 +69,7 @@ function Home() {
             position={"lg:flex-row"}
             heading={
               <div className="text-4xl font-bold">
-                Unlock your <HightLightText text="coding potential " />
+                Unlock your <HighLightText text="coding potential " />
                 with our online courses.
               </div>
             }
@@ -92,10 +97,8 @@ function Home() {
           <CodeBlocks
             position={"lg:flex-row-reverse"}
             heading={
-              <div className="text-4xl font-bold">
-                Start {" "}
-                <HightLightText text="coding in seconds. " />
-               
+              <div className="text-4xl font-bold w-[250px]">
+                Start <HighLightText text="coding in seconds. " />
               </div>
             }
             subHeading={
@@ -116,10 +119,64 @@ function Home() {
             backGroundGradient={<div className="codeblock1 absolute"></div>}
           />
         </div>
+        <ExploreMore/>
       </div>
       {/* section 2 */}
+
+      {/* two button with white bg */}
+      <div className="bg-pure-greys-5 text-richblack-700">
+        <div className="homePage_bg h-[310px]">
+          <div className="w-11/12 max-w-maxContent flex flex-col items-center gap-5 justify-center mx-auto">
+            <div className="h-[150px]"> </div>
+            <div className="flex gap-5 items-center justify-between ">
+              <CallToActionButton active={true} linkTo={"/signup"}>
+                <div className="flex items-center gap-3 ">
+                  Explore Full Catalog
+                  <MoveRight />
+                </div>
+              </CallToActionButton>
+              <CallToActionButton active={false} linkTo={"/signup"}>
+                <div className="text-white">Learn More</div>
+              </CallToActionButton>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-11/12 max-w-maxContent flex flex-col items-center gap-5 mx-auto bg-pure-greys-5 ">
+          <div className="flex  gap-10 mt-[90px] mb-10 ml-20">
+            <div className="text-4xl font-semibold w-[48%]">
+              Get the skills you need for a{" "}
+              <HighLightText text={"job that is in demand."} />
+            </div>
+            <div className="flex flex-col gap-7 items-start w-[40%]">
+              <p className="text-[16px]">
+                The modern StudyNotion is the dictates its own terms.Today, to
+                be a competitive specialist requires more than professional
+                skills.
+              </p>
+              <CallToActionButton active={true} linkTo={"/signup"}>
+                Learn More
+              </CallToActionButton>
+            </div>
+          </div>
+          <TimeLineSection />
+          <LearningLaguangeSection />
+        </div>
+      </div>
+
+      {/* Become an instructor and reviews */}
       {/* section 3 */}
+      <div className="w-11/12 mx-auto max-w-maxContent flex flex-col gap-8 items-center justify-between bg-richblack-900 text-white">
+        <InstructorSection />
+
+        <h2 className="font-bold text-center text-4xl">
+          Review from other learners
+        </h2>
+        {/* review slider */}
+      </div>
+
       {/* section 4 */}
+      <Footer/>
     </div>
   );
 }
