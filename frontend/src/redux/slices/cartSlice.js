@@ -1,0 +1,22 @@
+import {toast} from "react-hot-toast"
+
+
+const initialState = {
+    totalItems:localStorage.getItem("totalItems") ? JSON.parse(localStorage.getItem("totalItems")) : 0,
+}
+
+const cartSlice = createSlice({
+    name:"auth",
+    initialState:initialState,
+    reducers:{
+        setTotalItems : function(state,action) {
+            state.token = action.payload;
+        },
+        //addToCart
+        //removeFromCart
+        //resetCart
+    }
+})
+
+export const {setTotalItems} = cartSlice.actions;
+export default cartSlice.reducer;
