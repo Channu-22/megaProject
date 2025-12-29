@@ -44,7 +44,7 @@ export const authCheck = async (req, res, next) => {
 //isStudent
 export const isStudent = async (req, res, next) => {
     try {
-        if (req.user.role !== "Student") {
+        if (req.user.accountType !== "Student") {
             return res.status(401).json({
                 success: false,
                 message: "This is protected route for students only"
@@ -55,7 +55,7 @@ export const isStudent = async (req, res, next) => {
     } catch (err) {
         return res.status(500).json({
             success: false,
-            message: "User role cannot be verified please try again"
+            message: "User accountType cannot be verified please try again"
         })
 
     }
@@ -65,7 +65,7 @@ export const isStudent = async (req, res, next) => {
 //isInstructor
 export const isInstructor = async (req, res, next) => {
     try {
-        if (req.user.role !== "Instructor") {
+        if (req.user.accountType !== "Instructor") {
             return res.status(401).json({
                 success: false,
                 message: "This is protected route for Instructors only"
@@ -76,7 +76,7 @@ export const isInstructor = async (req, res, next) => {
     } catch (err) {
         return res.status(500).json({
             success: false,
-            message: "User role cannot be verified please try again"
+            message: "User accountType cannot be verified please try again"
         })
 
     }
@@ -85,7 +85,7 @@ export const isInstructor = async (req, res, next) => {
 //isAdmin
 export const isAdmin = async (req, res, next) => {
     try {
-        if (req.user.role !== "Admin") {
+        if (req.user.accountType !== "Admin") {
             return res.status(401).json({
                 success: false,
                 message: "This is protected route for Admins only"
@@ -96,7 +96,7 @@ export const isAdmin = async (req, res, next) => {
     } catch (err) {
         return res.status(500).json({
             success: false,
-            message: "User role cannot be verified please try again"
+            message: "User accountType cannot be verified please try again"
         })
 
     }

@@ -1,2 +1,19 @@
 //Day 1
 //shadow-lg shadow-richblack-700/50
+
+day 2
+export const apiConnector = (
+  method,
+  url,
+  data = null,
+  headers = {},
+  params = {}
+) => {
+  return axiosInstance({
+    method,
+    url,
+    data,
+    headers,
+    params,
+  });
+};

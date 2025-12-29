@@ -214,7 +214,7 @@ export const login = async (req, res) => {
         const payload = {
             id: user._id,
             email: user.email,
-            role: user.accountType,
+            accountType: user.accountType,
         }
 
         //generate JWT
@@ -226,7 +226,7 @@ export const login = async (req, res) => {
         let responseUser = {
             id: user._id,
             email: user.email,
-            role: user.accountType,
+            accountType: user.accountType,
             token: token
         };
         const option = {
